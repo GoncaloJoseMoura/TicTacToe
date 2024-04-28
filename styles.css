@@ -1,0 +1,192 @@
+@font-face {
+    font-family: NorseFont;
+    src: url('./assets/Norse-Bold.otf');
+}
+
+:root {
+    --primary-color: #1b2b34;
+    --sign-color: #203540;
+    --secondary-color: #a9bec9;
+    --button-hoverlay: #a8bdc8;
+    --note: #77858d;
+}
+
+body {
+    height: 100vh;
+    background-color: var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+
+    .player-sign {
+        background-color: var(--sign-color);
+        margin: 10px 0px;
+        height: 300px;
+        width: 30%;
+        box-shadow: 0px 0px 7px 5px rgba(0,0,0,0.2);
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        font-family: NorseFont;
+        letter-spacing: 4px;
+
+        p:first-child {
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+        }
+
+        .signs {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+
+            > div {
+                font-family: 'Times New Roman', Times, serif;
+                color: var(--button-hoverlay);
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                font-size: 1.6rem;
+
+                input {
+                    font-family: "Helvetica", "Arial", sans-serif;
+                    font-size: 1rem;
+                    border: 1px solid #D6D9DC;
+                    border-radius: 4px;
+                    padding: 2px 9px;
+                }
+
+                input:focus {
+                    border: 1px solid #2475c6;
+                    box-shadow: 0px 0px 5px #dddddf;
+                    outline: none;
+                }
+
+            }
+            /* max-height: 100px;
+            width: 70%;
+            display: flex;
+            flex: 1 1 auto;
+            gap: 10px;
+
+            > button {
+                background-color: var(--primary-color);
+                color:  var(--button-hoverlay);
+                flex: 1;
+                padding: 8px 35px;
+                cursor: pointer;
+                border: none;
+                border-radius: 5px;
+            }
+
+            > button:hover {
+                background-color: var(--button-hoverlay);
+                color: var(--primary-color);
+
+            } */
+        }
+
+        p:last-child {
+            font-size: 1rem;
+            color: var(--note);
+        }
+    }
+
+    > button {
+        font-size: 1.4rem;
+        font-weight: 500;
+        font-family: NorseFont;
+        letter-spacing: 4px;
+
+        padding: 15px 45px 10px 45px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        background-color: #f1b138;
+        color: black;
+    }
+}
+
+
+.board {
+    display: flex;
+    justify-content: space-between;
+    flex: 1 1 auto;
+    align-items: center;
+    gap: 70px;
+
+    .player {
+        min-width: 80px;
+        font-size: 1.5rem;
+        font-weight: 500;
+        font-family: NorseFont;
+        letter-spacing: 3px;
+        color: var(--button-hoverlay);
+
+        span {
+            text-align: center;
+        }
+
+        .X {
+            color: #0ceffe;
+        }
+
+        .O {
+            color: #fcff28;
+        }
+    }
+    
+    .outside {
+        margin: 50px auto;
+        height: 50vh;
+        width: 30vw;
+        background-color: white;
+        display: grid;
+        grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+        border: 10px solid var(--secondary-color);
+        border-radius: 10px;
+        box-shadow: 0px 0px 7px 5px rgba(0,0,0,0.2);
+    
+        > div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            border: 1px solid black;
+            font-size: 5rem;
+        }
+    }
+
+}
+
+dialog {
+    text-align: center;
+    font-size: 1rem;
+    width: 300px;
+    height: 125px;
+    border: none;
+    box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.2);
+    border-radius: 5px;
+
+    button {
+        font-size: 1rem;
+        font-weight: bold;
+        background-color: #77858d;
+        color: #f5faf4;
+        border: 0px transparent;
+        border-radius: 6px;
+        padding:8px 20px;
+        cursor: pointer;
+    }
+}
+
+dialog::backdrop {
+    background-color: #a8bdc8;
+    opacity: 0.5;
+
+}
