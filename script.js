@@ -3,9 +3,48 @@ const startGame = document.querySelector('.start');
 const tictactoe = (function () {
 
     const body = document.querySelector('body');
+    let player_1;
+    let player_2;
 
-    let boardGame
+    let boardGame;
 
+    const charSelect = function () {
+        body.innerHTML = `
+        <div class="logo">
+            <img src="./assets/Odin_Logo.svg" alt="Odin Project Viking Logo">
+        </div>
+
+        <div class="player-sign">
+            <p>Pick Players Names</p>
+            <div class="signs">
+
+                <div>
+                    <label for="player_1">X:</label>
+                    <input type="text" id="player_1" placeholder="Player 1's name" value="Player 1">
+                </div>
+
+                <div>
+                    <label for="player_2">O:</label>
+                    <input type="text" id='player_2' placeholder="Player 2's name" value="Player 2">
+                </div>
+
+            </div>
+            <p class="reminder">Remember: X Goes first</p>
+
+        </div>
+
+        <button type="button" class="start">Start Game!</button>
+        `
+
+
+
+        const startGame = document.querySelector('.start');
+        startGame.addEventListener('click', () => {
+            player_1 = document.querySelector('#player_1').value
+            player_2 = document.querySelector('#player_2').value
+            buildBoard(player_1, player_2)
+        });
+    }
 
     const resetBoard = function (player_1, player_2) {
         document.querySelector('#myDialog').close()
@@ -78,7 +117,8 @@ const tictactoe = (function () {
 
         <dialog id="myDialog">
             <h2></h2>
-            <button onclick="tictactoe.resetBoard('${player_1}', '${player_2}')" >Reset</button>
+            <button onclick="tictactoe.charSelect()">Quit</button>
+            <button onclick="tictactoe.resetBoard('${player_1}', '${player_2}')">Reset</button>
         </dialog>
         `
 
@@ -119,13 +159,8 @@ const tictactoe = (function () {
 
     }
 
-    return {checkResult, checkForWinner, buildBoard, resetBoard}
+    return {checkResult, checkForWinner, buildBoard, resetBoard, charSelect}
 })()
 
 
-startGame.addEventListener('click', (event) => {
-    const player_1 =document.querySelector('#player_1').value
-    const player_2 =document.querySelector('#player_2').value
-
-    tictactoe.buildBoard(player_1, player_2)
-});
+tictactoe.charSelect()
