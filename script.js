@@ -1,5 +1,3 @@
-const startGame = document.querySelector('.start');
-
 const tictactoe = (function () {
 
     const body = document.querySelector('body');
@@ -7,6 +5,15 @@ const tictactoe = (function () {
     let player_2;
 
     let boardGame;
+
+
+    const updateCounter = function (winner) {
+        if (winner == player_1) {
+            document.querySelector('.p1_counter').textContent = Number(document.querySelector('.p1_counter').textContent) + 1    
+        } else {
+            document.querySelector('.p2_counter').textContent = Number(document.querySelector('.p2_counter').textContent) + 1  
+        }
+    }
 
     const charSelect = function () {
         body.innerHTML = `
@@ -47,14 +54,20 @@ const tictactoe = (function () {
     }
 
     const resetBoard = function (player_1, player_2) {
+
+        let counter_p1 = document.querySelector('.p1_counter').textContent
+        let counter_p2 = document.querySelector('.p2_counter').textContent
+
         document.querySelector('#myDialog').close()
-        buildBoard(player_1, player_2)
+        buildBoard(player_1, player_2, counter_p1, counter_p2)
     }
 
     const checkResult = function (num, player_1, player_2) {
         if (checkForWinner()) {
 
             let winner =  num%2 != 0 ? player_1 : player_2
+
+            updateCounter(winner)
 
             const dialog = body.querySelector('dialog')
 
@@ -82,7 +95,7 @@ const tictactoe = (function () {
     ) 
     }
 
-    const buildBoard = function (player_1, player_2) {
+    const buildBoard = function (player_1, player_2, counter_p1 = 0, counter_p2 = 0) {
 
         let num = 0
 
@@ -94,31 +107,44 @@ const tictactoe = (function () {
         body.innerHTML = `    
         <section class="board">
 
-            <div class="player">
-                <p class="player_1_name">${player_1}</p><span class= 'X'>Turn</span>
+        <div class="player">
+            <div class="player_turn">
+                <p class="player_1_name">${player_1}</p>
+                <span class= 'X'>Turn</span>
             </div>
+            <div class="counter">
+                <p class= "p1_counter">${counter_p1}</p>
+            </div>
+         </div>
 
-            <div class="outside">
-                <div class="0"></div>
-                <div class="1"></div>
-                <div class="2"></div>
-                <div class="3"></div>
-                <div class="4"></div>
-                <div class="5"></div>
-                <div class="6"></div>
-                <div class="7"></div>
-                <div class="8"></div>
-            </div>
+         <div class="outside">
+             <div class="0"></div>
+             <div class="1"></div>
+             <div class="2"></div>
+             <div class="3"></div>
+             <div class="4"></div>
+             <div class="5"></div>
+             <div class="6"></div>
+             <div class="7"></div>
+             <div class="8"></div>
+         </div>
 
-            <div class="player">
-                <p class="player_2_name">${player_2}</p><span class='O'></span>
+         <div class="player">
+            <div class="player_turn">
+                <p class="player_2_name">${player_2}</p>
+                <span class= 'O'></span>
             </div>
-        </section>
+             <div class="counter p1">
+                <p class="p2_counter">${counter_p2}</p>
+             </div>
+         </div>
+
+     </section>
 
         <dialog id="myDialog">
             <h2></h2>
             <button onclick="tictactoe.charSelect()">Quit</button>
-            <button onclick="tictactoe.resetBoard('${player_1}', '${player_2}')">Reset</button>
+            <button onclick="tictactoe.resetBoard('${player_1}', '${player_2}')">Continue</button>
         </dialog>
         `
 
@@ -161,6 +187,5 @@ const tictactoe = (function () {
 
     return {checkResult, checkForWinner, buildBoard, resetBoard, charSelect}
 })()
-
 
 tictactoe.charSelect()
